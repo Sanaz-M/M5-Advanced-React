@@ -1,28 +1,31 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form, Container, ListGroup } from 'react-bootstrap'
+import { Row, Col, Form, Container, ListGroup, Button } from 'react-bootstrap'
+import { useNavigate } from "react-router";
 
 const HomePage = () => {
     const [query, setQuery] = useState('')
     const [jobOffers, setJobOffers] = useState([])
+    const navigate = useNavigate();
 
 
     useEffect(() => {
         fetchJobs();
-    }, [])
+    }, []);
 
+    const searchChange = (e) => {
+        setQuery(e.target.value )
+    }
 
-    const fetchJobs = async () => {
+    const fetchJobs = async (e) => {
+        
         try {
-            let response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?search=${query}&limit=10`,
-                {
-                    headers: {
-                        "Content-type": 'application/json',
-                    }
-                });
+            e.preventDefault()
+            let response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search='+ query
+                );
             if (response.ok) {
-                let jobs = await response.json();
-                console.log(jobs)
-                setJobOffers(jobs.data)
+                const { data } = await response.json()
+                setJobOffers(data)
+              
             } else {
                 console.log("error fetching details");
             };
@@ -33,17 +36,12 @@ const HomePage = () => {
     }
 
     return (
-        <Container>
+        <div>
             <Row id='row1'>
                 <Col id='col1'>
-                    <Form.Group controlId="formBasicEmail">
-                        <Form.Control
-                            type="text"
-                            placeholder="Search"
-                            value={query}
-                            onChange={e => setQuery(e.target.value)}
-                        />
-                    </Form.Group>
+                    <Form onSubmit={fetchJobs}>
+                        <Form.Control type="search" placeholder="search" value={query} onChange={searchChange}  />
+                    </Form>
                 </Col>
             </Row>
             <Row>
@@ -53,6 +51,7 @@ const HomePage = () => {
                             jobOffers.length > 0 && jobOffers.map((job) => (
 
                                 <ListGroup.Item
+                                    key={job._id}
                                     as="li"
                                     className="d-flex justify-content-between align-items-start"
                                 >
@@ -60,17 +59,18 @@ const HomePage = () => {
                                         <div className="fw-bold">{job.category}</div>
                                         <div>{job.company_name}</div>
                                         <div>publication date: <span className="date1">{job.publication_date}</span></div>
-
+                                        <Button color="primary" onClick={() => navigate("/company")}>Company Details
+                                        </Button>
                                     </div><hr />
                                 </ListGroup.Item>
-                                
+
                             ))
                         }
 
                     </ListGroup>
                 </Col>
             </Row>
-        </Container>
+        </div>
     )
 }
 
