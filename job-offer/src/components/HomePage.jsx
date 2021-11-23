@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Form, Container, ListGroup, Button } from 'react-bootstrap'
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [query, setQuery] = useState('')
@@ -49,7 +50,7 @@ const HomePage = () => {
                     <ListGroup as="ul">
                         {
                             jobOffers.length > 0 && jobOffers.map((job) => (
-
+                                 
                                 <ListGroup.Item
                                     key={job._id}
                                     as="li"
@@ -57,12 +58,11 @@ const HomePage = () => {
                                 >
                                     <div className="ms-2 me-auto">
                                         <div className="fw-bold">{job.category}</div>
-                                        <div>{job.company_name}</div>
+                                        <Link to={job.company_name}><div>{job.company_name}</div></Link>
                                         <div>publication date: <span className="date1">{job.publication_date}</span></div>
-                                        <Button color="primary" onClick={() => navigate("/company")}>Company Details
-                                        </Button>
                                     </div><hr />
                                 </ListGroup.Item>
+                                
 
                             ))
                         }

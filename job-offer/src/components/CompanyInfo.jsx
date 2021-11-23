@@ -1,19 +1,19 @@
-import { useState, useParams, useEffect } from "react"
+import { useState, useEffect } from "react"
 import {Container, Row, Col, Card} from 'react-bootstrap'
+import { useParams } from "react-router-dom"
 
 const CompanyInfo = () => {
 
     const [jobs, setJobs] = useState([])
-    const params = useParams()
+    const params = useParams();
 
     useEffect(() => {
         jobInfo()
-        console.log(params)
     }, [])
 
 
     const jobInfo = async() => {
-        let response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?company=${params}`)
+        let response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?company=${params.companyName}&limit=10`)
         const {data} = await response.json()
         setJobs(data)
     }
@@ -24,7 +24,9 @@ const CompanyInfo = () => {
                 <Col>
                     {jobs.map((info) => ( 
                         <Card key={info._id}>
-                        <Card.Body>data={info.description}</Card.Body>
+                        <Card.Body>
+                            <div>{info.company_name}</div>
+                            {info.title}</Card.Body>
                       </Card>
                          ))}
                         
