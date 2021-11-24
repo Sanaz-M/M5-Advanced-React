@@ -5,6 +5,7 @@ import CompanyInfo from './components/CompanyInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar';
 import { Container, Row } from 'react-bootstrap';
+import FavoritesCompany from './components/FavoritesCompany';
 
 
 
@@ -21,6 +22,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/:companyName" element={<CompanyInfo />} />
+        <Route path="/favorites" element={<FavoritesCompany />} />
 
       </Routes>
       </Row>

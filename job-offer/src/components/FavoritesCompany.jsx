@@ -18,17 +18,13 @@ const Faviorite = ({ favs, removeFromFav }) => (
   <Row>
     <Col sm={12}>
       <ul style={{ listStyle: "none" }}>
-        {favs.map((company, i) => (
-          <li key={i} className="my-4">
-            <Button variant="danger" onClick={() => removeFromFav(i)}>
+        {favs.map((company) => (
+          <li key={company._id} className="my-4">
+            <Button variant="danger" onClick={() => removeFromFav(company)}>
               <FaTrash />
             </Button>
-            <img
-              className="book-cover-small"
-              src={company.company_name}
-              alt="book selected"
-            />
-            {company.title}
+            <span className="mx-2"><strong>{company.company_name}</strong></span>
+            <span>{company.title}</span>
           </li>
         ))}
       </ul>

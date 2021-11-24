@@ -5,9 +5,7 @@ import {addToFavAction} from '../actions'
 import { connect } from 'react-redux'
 
 
-const mapStateToProps = (state) => ({
-    favs: state.favs.content
-    })
+const mapStateToProps = (state) => state
   
   const mapDispatchToProps = (dispatch) => ({
     addToFav: function (addCompany) {

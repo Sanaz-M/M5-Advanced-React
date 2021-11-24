@@ -1,4 +1,4 @@
-import { ADD_TO_FAV, REMOVE_FROM_FAV, REMOVE_FROM_FAV } from '../actions'
+import { ADD_TO_FAV, REMOVE_FROM_FAV } from '../actions'
 import { initialState } from '../store'
 
 
@@ -19,7 +19,7 @@ const mainReducer = (state = initialState, action) => {
         ...state,
         favs: {
           ...state.favs,
-          content: state.favs.content.filter((el, i) => i !== action.payload), 
+          content: state.favs.content.filter((company) => company !== action.payload), 
         },
       }
     default:
