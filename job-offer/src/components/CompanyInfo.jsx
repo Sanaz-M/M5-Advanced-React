@@ -34,6 +34,7 @@ const CompanyInfo = ({addToFav}) => {
         <Container>
             <Row>
                 <Col>
+                
                     {jobs.map((info) => ( 
                         <Card key={info._id}>
                         <Card.Body>
