@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Form, Container, ListGroup, Button } from 'react-bootstrap'
-import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
     const [query, setQuery] = useState('')
     const [jobOffers, setJobOffers] = useState([])
-    const navigate = useNavigate();
+    
 
 
     useEffect(() => {

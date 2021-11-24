@@ -1,9 +1,23 @@
 import { useState, useEffect } from "react"
-import {Container, Row, Col, Card} from 'react-bootstrap'
+import {Container, Row, Col, Card, Button} from 'react-bootstrap'
 import { useParams } from "react-router-dom"
+import {addToFavAction} from '../actions'
+import { connect } from 'react-redux'
 
-const CompanyInfo = () => {
 
+const mapStateToProps = (state) => ({
+    favs: state.favs.content
+    })
+  
+  const mapDispatchToProps = (dispatch) => ({
+    addToFav: function (addCompany) {
+      dispatch(addToFavAction(addCompany))
+    }
+  })
+
+
+const CompanyInfo = ({addToFav}) => {
+    // const [selectedCompany, setSelectedCompany] = useState('')
     const [jobs, setJobs] = useState([])
     const params = useParams();
 
@@ -25,8 +39,10 @@ const CompanyInfo = () => {
                     {jobs.map((info) => ( 
                         <Card key={info._id}>
                         <Card.Body>
-                            <div>{info.company_name}</div>
-                            {info.title}</Card.Body>
+                            <span><strong>{info.company_name}</strong></span> 
+                            <Button variant="outline-danger" className="ml-3" onClick={() => addToFav(info)}>Add to Favs</Button>
+                            <div>{info.title}</div>
+                            </Card.Body>
                       </Card>
                          ))}
                         
@@ -36,4 +52,4 @@ const CompanyInfo = () => {
     )
 }
 
-export default CompanyInfo
+export default connect(mapStateToProps, mapDispatchToProps)(CompanyInfo)

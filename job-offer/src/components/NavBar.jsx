@@ -6,6 +6,10 @@ const NavBar = () => (
     <Nav className="me-auto">
         <Link to="/">
       <div>Home</div>
+      
+      </Link>
+      <Link to="/favorites">
+      <div className="heart-saved ml-5">Favorites</div>
       </Link>
     </Nav>
   </Navbar>
