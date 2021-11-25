@@ -16,9 +16,9 @@ export const addToFavAction = (addCompany) => ({
   export const getJobsAction = () => {
     return async (dispatch) => {
       try {
-        const response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search=')
+        const response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search=developer&limit=10')
         if (response.ok) {
-          const data = await response.json()
+          const {data} = await response.json()
           dispatch({
             type: GET_JOBS,
             payload: data,

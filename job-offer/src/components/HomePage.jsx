@@ -1,52 +1,47 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getJobsAction } from "../actions";
 
-const HomePage = () => {
+
+
+const mapStateToProps = (state) => ({
+    jobsResult: state.jobs.result,
+    jobsLoading: state.jobs.isLoading,
+    jobsSearch: state.jobs.query
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getJobs: () => {
+        dispatch(getJobsAction())
+    }
+})
+
+
+const HomePage = ({getJobs, jobsSearch, jobsResult}) => {
     const [query, setQuery] = useState('')
-    const [jobOffers, setJobOffers] = useState([])
 
 
 
     useEffect(() => {
-        fetchJobs();
+        getJobs();
     }, [query]);
 
     const searchChange = (e) => {
         setQuery(e.target.value)
     }
 
-    const fetchJobs = async (e) => {
-        if (e) {
-            e.preventDefault()
-        }
-        try {
-
-            let response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search=' + query + '&limit=10'
-            );
-            if (response.ok) {
-                const { data } = await response.json()
-                setJobOffers(data)
-
-            } else {
-                console.log("error fetching details");
-            };
-
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
     return (
         <div>
             <Row id='row1'>
                 <Col id='col1'>
-                    <Form onSubmit={fetchJobs}>
+                    <Form onSubmit={getJobs}>
                         <Form.Group controlId="formBasicEmail">
                             <Form.Control
                                 type="text"
                                 placeholder="Search"
-                                value={query}
+                                value={jobsSearch}
                                 onChange={searchChange}
                             />
                         </Form.Group>
@@ -57,7 +52,7 @@ const HomePage = () => {
                 <Col>
                     <ListGroup as="ul">
                         {
-                            jobOffers.length > 0 && jobOffers.map((job) => (
+                            jobsResult.length > 0 && jobsResult.map((job) => (
 
                                 <ListGroup.Item
                                     key={job._id}
@@ -82,4 +77,4 @@ const HomePage = () => {
     )
 }
 
-export default HomePage
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
