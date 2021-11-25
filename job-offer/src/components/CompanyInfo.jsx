@@ -1,20 +1,20 @@
 import { useState, useEffect } from "react"
-import {Container, Row, Col, Card, Button} from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
-import {addToFavAction} from '../actions'
+import { addToFavAction } from '../actions'
 import { connect } from 'react-redux'
 
 
 const mapStateToProps = (state) => state
-  
-  const mapDispatchToProps = (dispatch) => ({
+
+const mapDispatchToProps = (dispatch) => ({
     addToFav: function (addCompany) {
-      dispatch(addToFavAction(addCompany))
+        dispatch(addToFavAction(addCompany))
     }
-  })
+})
 
 
-const CompanyInfo = ({addToFav}) => {
+const CompanyInfo = ({ addToFav }) => {
     // const [selectedCompany, setSelectedCompany] = useState('')
     const [jobs, setJobs] = useState([])
     const params = useParams();
@@ -24,30 +24,34 @@ const CompanyInfo = ({addToFav}) => {
     }, [])
 
 
-    const jobInfo = async() => {
+    const jobInfo = async () => {
         let response = await fetch(`https://strive-jobs-api.herokuapp.com/jobs?company=${params.companyName}&limit=10`)
-        const {data} = await response.json()
+        const { data } = await response.json()
+        console.log(data)
         setJobs(data)
     }
 
-    return(
+    return (
         <Container>
             <Row>
                 <Col>
-                
-                    {jobs.map((info) => ( 
+                    {jobs.map((info) => (
                         <Card key={info._id}>
-                        <Card.Body>
-                            <span><strong>{info.company_name}</strong></span> 
-                            <Button variant="outline-danger" className="ml-3" onClick={() => addToFav(info)}>Add to Favs</Button>
-                            <div>{info.title}</div>
+                            <Card.Body>
+                                <span><strong>{info.company_name}</strong></span>
+                                <div>{info.title}</div>
+                                <Button variant="outline-danger" className="ml-3" onClick={() => addToFav(info)}>Add to Favs</Button>
                             </Card.Body>
-                      </Card>
-                         ))}
-                        
+                        </Card>
+                    ))}
+
+
+
+
+
                 </Col>
             </Row>
-        </Container>
+        </Container >
     )
 }
 

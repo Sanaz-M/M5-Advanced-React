@@ -24,7 +24,6 @@ const Faviorite = ({ favs, removeFromFav }) => (
               <FaTrash />
             </Button>
             <span className="mx-2"><strong>{company.company_name}</strong></span>
-            <span>{company.title}</span>
           </li>
         ))}
       </ul>

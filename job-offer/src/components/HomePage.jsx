@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form, Container, ListGroup, Button } from 'react-bootstrap'
+import { Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 
 const HomePage = () => {
@@ -10,16 +10,18 @@ const HomePage = () => {
 
     useEffect(() => {
         fetchJobs();
-    }, []);
+    }, [query]);
 
     const searchChange = (e) => {
         setQuery(e.target.value)
     }
 
     const fetchJobs = async (e) => {
-
-        try {
+        if (e) {
             e.preventDefault()
+        }
+        try {
+
             let response = await fetch('https://strive-jobs-api.herokuapp.com/jobs?search=' + query + '&limit=10'
             );
             if (response.ok) {
