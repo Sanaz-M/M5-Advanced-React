@@ -3,26 +3,26 @@ import { Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getJobsAction } from "../actions";
+import {Spinner} from 'react-bootstrap'
 
 
 
 const mapStateToProps = (state) => ({
     jobsResult: state.jobs.result,
     jobsLoading: state.jobs.isLoading,
-    jobsSearch: state.jobs.query
+    jobsSearch: state.jobs.query,
+    jobsError: state.jobs.isError,
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getJobs: () => {
-        dispatch(getJobsAction())
+    getJobs: (query) => {
+        dispatch(getJobsAction(query))
     }
 })
 
 
-const HomePage = ({getJobs, jobsSearch, jobsResult}) => {
+const HomePage = ({ getJobs, jobsResult, jobsLoading }) => {
     const [query, setQuery] = useState('')
-
-
 
     useEffect(() => {
         getJobs();
@@ -35,18 +35,30 @@ const HomePage = ({getJobs, jobsSearch, jobsResult}) => {
     return (
         <div>
             <Row id='row1'>
-                <Col id='col1'>
-                    <Form onSubmit={getJobs}>
-                        <Form.Group controlId="formBasicEmail">
-                            <Form.Control
-                                type="text"
-                                placeholder="Search"
-                                value={jobsSearch}
-                                onChange={searchChange}
-                            />
-                        </Form.Group>
-                    </Form>
-                </Col>
+                
+                    {jobsLoading ? (
+                        <Spinner animation="border" variant="success" style={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%'
+                        }} />
+                    ) :
+                        <Col id='col1'>
+                            <Form onSubmit={(e)=>{
+                                e.preventDefault()
+                                getJobs(query)
+                            }}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Search"
+                                        value={query}
+                                        onChange={searchChange}
+                                    />
+                                </Form.Group>
+                            </Form>
+                        </Col>
+}
             </Row>
             <Row>
                 <Col>

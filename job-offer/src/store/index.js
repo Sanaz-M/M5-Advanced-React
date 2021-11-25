@@ -15,7 +15,7 @@ export const initialState = {
     result: [],
     isError: false,
     isLoading: true,
-    query: ''
+    query: 'writing'
   }
 }
 

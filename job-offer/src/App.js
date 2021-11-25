@@ -4,7 +4,7 @@ import HomePage from './components/HomePage';
 import CompanyInfo from './components/CompanyInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import NavBar from './components/NavBar';
-import { Container, Row } from 'react-bootstrap';
+import { Row } from 'react-bootstrap';
 import FavoritesCompany from './components/FavoritesCompany';
 
 
@@ -14,10 +14,10 @@ import FavoritesCompany from './components/FavoritesCompany';
 const App = () => {
   return(
     <BrowserRouter>
-    <Container>
-      <Row>
+    <div id="main-container">
+      <div>
       <NavBar />
-      </Row>
+      </div>
       <Row>
       <Routes>
         <Route path="/" element={<HomePage />} />
@@ -26,7 +26,7 @@ const App = () => {
 
       </Routes>
       </Row>
-    </Container>
+    </div>
     </BrowserRouter>
   )
 }

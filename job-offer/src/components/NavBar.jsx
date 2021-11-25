@@ -2,10 +2,10 @@ import { Navbar, Nav } from "react-bootstrap"
 import { Link } from "react-router-dom"
 
 const NavBar = () => (
-    <Navbar bg="transparent" variant="light">
+    <Navbar bg="dark" variant="light" id="navbar-horiz">
     <Nav className="me-auto">
         <Link to="/">
-      <div>Home</div>
+      <div className="text-white">Home</div>
       
       </Link>
       <Link to="/favorites">
