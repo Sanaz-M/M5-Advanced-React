@@ -1,13 +1,14 @@
 # M5-Advanced-React
 
-<div>
-  <p>React bootstrap & bootstrap
-  <br>React redux
-  <br>Hooks
-  <br>Redux persist
-  <br>Redux persist transform encrypt
-  <br>Reduc Thunk
-  <br>Fetching API
-  <br>React router dom
-  </p>
-</div>
+<h4>
+  <ul>
+    <li>React bootstrap & bootstrap</li>
+    <li>React redux</li>
+    <li>Hooks</li>
+    <li>Redux persist</li>
+    <li>Redux persist transform encrypt</li>
+    <li>Reduc Thunk</li>
+    <li>Fetching API</li>
+    <li>React router dom</li>
+  </ul>
+</h4>
