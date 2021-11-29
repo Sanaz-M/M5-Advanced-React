@@ -2,19 +2,24 @@ import { useState, useEffect } from "react"
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { useParams } from "react-router-dom"
 import { addToFavAction } from '../actions'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+
+//...without HOOK...
+// const mapStateToProps = (state) => state
+
+// const mapDispatchToProps = (dispatch) => ({
+//     addToFav: function (addCompany) {
+//         dispatch(addToFavAction(addCompany))
+//     }
+// })
 
 
-const mapStateToProps = (state) => state
+const CompanyInfo = () => {
 
-const mapDispatchToProps = (dispatch) => ({
-    addToFav: function (addCompany) {
-        dispatch(addToFavAction(addCompany))
-    }
-})
+    //...with HOOK...
+    const dispatch = useDispatch()
 
-
-const CompanyInfo = ({ addToFav }) => {
     // const [selectedCompany, setSelectedCompany] = useState('')
     const [jobs, setJobs] = useState([])
     const params = useParams();
@@ -40,7 +45,7 @@ const CompanyInfo = ({ addToFav }) => {
                             <Card.Body>
                                 <span><strong>{info.company_name}</strong></span>
                                 <div>{info.title}</div>
-                                <Button variant="outline-danger" className="ml-3" onClick={() => addToFav(info)}>Add to Favs</Button>
+                                <Button variant="outline-danger" className="ml-3" onClick={() =>  dispatch(addToFavAction(info))}>Add to Favs</Button>
                             </Card.Body>
                         </Card>
                     ))}
@@ -55,4 +60,4 @@ const CompanyInfo = ({ addToFav }) => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CompanyInfo)
+export default CompanyInfo

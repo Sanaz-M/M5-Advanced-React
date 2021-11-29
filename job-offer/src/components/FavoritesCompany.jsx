@@ -1,7 +1,7 @@
 import Button from "react-bootstrap/Button";
 import { FaTrash } from "react-icons/fa";
 import { Col, Row } from "react-bootstrap";
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import { removeFromFavAction } from "../actions";
 import { useSelector, useDispatch } from 'react-redux'
 

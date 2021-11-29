@@ -1,31 +1,38 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { getJobsAction } from "../actions";
 import {Spinner} from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
 
 
+//...without HOOK...
+// const mapStateToProps = (state) => ({
+//     jobsResult: state.jobs.result,
+//     jobsLoading: state.jobs.isLoading,
+//     jobsSearch: state.jobs.query,
+//     jobsError: state.jobs.isError,
+// })
 
-const mapStateToProps = (state) => ({
-    jobsResult: state.jobs.result,
-    jobsLoading: state.jobs.isLoading,
-    jobsSearch: state.jobs.query,
-    jobsError: state.jobs.isError,
-})
-
-const mapDispatchToProps = (dispatch) => ({
-    getJobs: (query) => {
-        dispatch(getJobsAction(query))
-    }
-})
+// const mapDispatchToProps = (dispatch) => ({
+//     getJobs: (query) => {
+//         dispatch(getJobsAction(query))
+//     }
+// })
 
 
-const HomePage = ({ getJobs, jobsResult, jobsLoading }) => {
+const HomePage = () => {
     const [query, setQuery] = useState('')
+    //...with HOOK...
+    const jobsResult = useSelector(state => state.jobs.result)
+    const jobsLoading = useSelector(state => state.jobs.isLoading)
+    const jobsSearch = useSelector(state => state.jobs.query)
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        getJobs();
+        dispatch(getJobsAction(query));
     }, [query]);
 
     const searchChange = (e) => {
@@ -46,7 +53,7 @@ const HomePage = ({ getJobs, jobsResult, jobsLoading }) => {
                         <Col id='col1'>
                             <Form onSubmit={(e)=>{
                                 e.preventDefault()
-                                getJobs(query)
+                                dispatch(getJobsAction(query))
                             }}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Control
@@ -89,4 +96,4 @@ const HomePage = ({ getJobs, jobsResult, jobsLoading }) => {
     )
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage)
+export default HomePage
