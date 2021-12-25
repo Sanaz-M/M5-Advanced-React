@@ -30,6 +30,7 @@
 #main-container{
   width: 100%;
   margin: 0;
+  background-color: rgb(37, 35, 46);;
 }
 
 #row1{
@@ -67,4 +68,19 @@
 
 #navbar-horiz{
   width: 100%;
+}
+
+#jobs-col{
+  display: flex;
+  justify-content: center;
+}
+
+#jobListGroup li{
+  background-color: #d3d3d3;
+  color: rgb(37, 35, 46);
+  font-size:12px;
+}
+
+#jobListGroup a{
+  font-weight: bold;
 }

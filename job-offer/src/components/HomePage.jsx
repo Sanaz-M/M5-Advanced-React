@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { Row, Col, Form, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Form, ListGroup } from 'react-bootstrap'
 import { Link } from "react-router-dom";
 // import { connect } from "react-redux";
 import { getJobsAction } from "../actions";
-import {Spinner} from 'react-bootstrap'
+import { Spinner } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -40,36 +40,35 @@ const HomePage = () => {
     }
 
     return (
-        <div>
+        <Container>
             <Row id='row1'>
-                
-                    {jobsLoading ? (
-                        <Spinner animation="border" variant="success" style={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%'
-                        }} />
-                    ) :
-                        <Col id='col1'>
-                            <Form onSubmit={(e)=>{
-                                e.preventDefault()
-                                dispatch(getJobsAction(query))
-                            }}>
-                                <Form.Group controlId="formBasicEmail">
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Search"
-                                        value={query}
-                                        onChange={searchChange}
-                                    />
-                                </Form.Group>
-                            </Form>
-                        </Col>
-}
+                {jobsLoading ? (
+                    <Spinner animation="border" variant="success" style={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%'
+                    }} />
+                ) :
+                    <Col id='col1'>
+                        <Form onSubmit={(e) => {
+                            e.preventDefault()
+                            dispatch(getJobsAction(query))
+                        }}>
+                            <Form.Group controlId="formBasicEmail">
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Search"
+                                    value={query}
+                                    onChange={searchChange}
+                                />
+                            </Form.Group>
+                        </Form>
+                    </Col>
+                }
             </Row>
-            <Row>
-                <Col>
-                    <ListGroup as="ul">
+            <Row id="jobs-col">
+                <Col md={6}>
+                    <ListGroup as="ul" id='jobListGroup'>
                         {
                             jobsResult.length > 0 && jobsResult.map((job) => (
 
@@ -92,7 +91,7 @@ const HomePage = () => {
                     </ListGroup>
                 </Col>
             </Row>
-        </div>
+        </Container>
     )
 }
 
